@@ -24,16 +24,35 @@ body {
 }
 .dc-body {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
+  overflow-y: auto;
 }
 
+.dc-body > div{
+    margin: 10px auto 10px auto;
+}
+.dc-body::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+.dc-body::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+.dc-body::-webkit-scrollbar-thumb {
+  background-color: #0d8f8f20; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 1px solid #0d8f8f; /* creates padding around scroll thumb */
+}
+
+.dc-body {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #0d8f8f #0d8f8f20; /* scroll thumb and track */
+}
 .dc-header {
   height: 70px;
   padding: 20px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -56,7 +75,11 @@ body {
   border: 1px solid #0d8f8f20;
   border-radius: 50px;
   transition: 0.5s all;
-  background: linear-gradient(to right, transparent, trans, transparent);
+}
+
+.dselect-wrap:hover {
+  background-color: #0d8f8f10;
+  border: 1px solid #0d8f8f50;
 }
 
 .dselect-name {
@@ -69,6 +92,10 @@ body {
   background-color: #0d8f8f50;
   width: 95%;
   border-radius: 10px;
+}
+
+.ds-checked:hover{
+    background-color: #0d8f8f50;
 }
 
 .sel-group {
@@ -92,14 +119,14 @@ body {
   position: relative;
 }
 
-.titlename::after{
-    width: 125px;
-    height: 4px;
-    border-top: 1px solid #0d8f8f;
-    border-bottom: 1px solid #0d8f8f;
-    content: "";
-    position: absolute;
-    top: calc(100% + 5px);
+.titlename::after {
+  width: 125px;
+  height: 4px;
+  border-top: 1px solid #0d8f8f;
+  border-bottom: 1px solid #0d8f8f;
+  content: "";
+  position: absolute;
+  top: calc(100% + 5px);
 }
 
 .cgroup {
@@ -130,6 +157,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 button {
@@ -163,6 +192,7 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 50px;
   margin-bottom: 50px;
   gap: 50px;

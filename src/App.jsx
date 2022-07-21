@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import Pie from "./components/pie";
+import * as Scroll from 'react-scroll';
 
 function App() {
   const [anyev, setanyev] = useState(false);
@@ -14,6 +15,11 @@ function App() {
   const [checked_11, setChecked_11] = useState([false, false, false]);
   const [checked_13, setChecked_13] = useState([false, false, false, false]);
   const [checked_14, setChecked_14] = useState([false, false, false]);
+  const [message, setMessage] = useState("");
+  const pieRef = useRef(null)
+  const [loaded, setloaded] = useState(false);
+
+  const scroll = Scroll.animateScroll;
 
   const handleClick = (func, index, state) => {
     const arrtemp = [...state];
@@ -30,7 +36,10 @@ function App() {
     return arr.every((element) => element === false);
   }
 
+
   const PostRequest = async (arr1, arr2) => {
+    setloaded(false);
+    setMessage("Loading...");
     const data = {
       Baseline: arr1,
       Treated: arr2,
@@ -41,7 +50,6 @@ function App() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
     });
@@ -49,6 +57,9 @@ function App() {
     console.log(body);
     setdeath(body.Death);
     setanyev(body.AnyEv);
+    setMessage(body.Message);
+    setloaded(true);
+    scroll.scrollToBottom();
   };
 
   const handleReq = () => {
@@ -140,8 +151,8 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
-            Group of Drugs
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and
+            Another Group of Drugs
           </div>
         )}
         {allAreFalse(checked_0) ? (
@@ -150,7 +161,9 @@ function App() {
               allAreFalse(checked_3) ? "" : "dc-main-checked"
             }`}
           >
-            <div className="dc-header">{"Anti-Inflammatory Systemic Steroids"}</div>
+            <div className="dc-header">
+              {"Anti-Inflammatory Systemic Steroids"}
+            </div>
             <div className="dc-body">
               {names_3.map((name, index) => {
                 return (
@@ -169,8 +182,8 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
-            Group of Drugs
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and
+            Another Group of Drugs
           </div>
         )}
 
@@ -199,8 +212,8 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
-            Group of Drugs
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and
+            Another Group of Drugs
           </div>
         )}
       </div>
@@ -251,14 +264,16 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
-            Group of Drugs
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and
+            Another Group of Drugs
           </div>
         )}
         {/* third */}
         {allAreFalse(checked_10) ? (
           <div className="dc-main">
-            <div className="dc-header">{"Anti-Inflammatory Systemic Steroids"}</div>
+            <div className="dc-header">
+              {"Anti-Inflammatory Systemic Steroids"}
+            </div>
             <div className="dc-body">
               {names_3.map((name, index) => {
                 return (
@@ -279,8 +294,8 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
-            Group of Drugs
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and
+            Another Group of Drugs
           </div>
         )}
         {/* fourth */}
@@ -307,20 +322,23 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
-            Group of Drugs
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and
+            Another Group of Drugs
           </div>
         )}
       </div>
       <div className="button-fetch">
         <button onClick={handleReq}>Calculate Results</button>
       </div>
-      <div className="results">
-      </div>
-      <div className="pie-contain">
-        <Pie prob={0.6121293109283} text="AnyEv"/>
-        <Pie prob={0.4332419411233} text="Death"/>
-      </div>
+
+      {loaded && message === null ? (
+        <div className="pie-contain" ref={pieRef}>
+          <Pie obj={anyev} text="AnyEv" />
+          <Pie obj={death} text="Death" />
+        </div>
+      ) : (
+        <div className="loading">{message}</div>
+      )}
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement } from "chart.js";
 import "./pie.css";
 
 const Pie = (props) => {
@@ -11,7 +11,7 @@ const Pie = (props) => {
     datasets: [
       {
         cutout: "80%",
-        data: [props.prob, 1 - props.prob],
+        data: [props.obj.Prob, 1 - props.obj.Prob],
         backgroundColor: ["#0d8f8f50", "transparent"],
         borderColor: ["#0d8f8f", "#0d8f8f"],
         borderWidth: 2,
@@ -41,7 +41,7 @@ const Pie = (props) => {
           <div className="p-box">
             P<sub>({props.text})</sub>
           </div>
-          <div className="number">{roundToN(props.prob, 5)}</div>
+          <div className="number">{roundToN(props.obj.Prob, 5)}</div>
         </div>
         <Doughnut data={data} options={options} />
       </div>
@@ -50,16 +50,16 @@ const Pie = (props) => {
           <thead>
             <tr>
               <th colSpan={2}>{props.text}</th>
-            </tr>{" "}
+            </tr>
           </thead>
           <tbody>
             <tr>
               <td>probability</td>
-              <td>{props.prob}</td>
+              <td>{props.obj.Prob}</td>
             </tr>
             <tr>
               <td>ACE</td>
-              <td>{1 - props.prob}</td>
+              <td>{props.obj.ACE ? props.obj.ACE : "null"}</td>
             </tr>
           </tbody>
         </table>

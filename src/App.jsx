@@ -1,27 +1,18 @@
 import React, { useState } from "react";
 import "./App.css";
+import Pie from "./components/pie";
 
 function App() {
   const [anyev, setanyev] = useState(false);
   const [death, setdeath] = useState(false);
   const [checked_0, setChecked_0] = useState([false]);
   const [checked_1, setChecked_1] = useState([false, false, false]);
-  const [checked_3, setChecked_3] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [checked_3, setChecked_3] = useState([false, false, false, false]);
   const [checked_4, setChecked_4] = useState([false, false, false]);
 
   const [checked_10, setChecked_10] = useState([false]);
   const [checked_11, setChecked_11] = useState([false, false, false]);
-  const [checked_13, setChecked_13] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [checked_13, setChecked_13] = useState([false, false, false, false]);
   const [checked_14, setChecked_14] = useState([false, false, false]);
 
   const handleClick = (func, index, state) => {
@@ -30,8 +21,8 @@ function App() {
     func(arrtemp);
     console.log(arrtemp);
   };
-  const names_0 = ["1"];
-  const names_1 = ["1", "2", "3"];
+  const names_0 = ["No Drugs"];
+  const names_1 = ["NSAID", "COX2", "CELE"];
   const names_3 = ["1", "2", "3", "4"];
   const names_4 = ["1", "2", "3"];
 
@@ -46,17 +37,14 @@ function App() {
     };
     console.log(data);
 
-    const response = await fetch(
-      "https://hadrosdemo.herokuapp.com/getdata/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const response = await fetch("https://hadrosdemo.herokuapp.com/getdata/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(data),
+    });
     const body = await response.json();
     console.log(body);
     setdeath(body.Death);
@@ -97,10 +85,9 @@ function App() {
     PostRequest(arr1, arr2);
   };
 
-
   return (
     <>
-      <div className="titlename">First Group</div>
+      <div className="titlename">Baseline</div>
       <div className="sel-group">
         {/* zeroth */}
 
@@ -109,7 +96,7 @@ function App() {
             allAreFalse(checked_0) ? "" : "dc-main-checked"
           }`}
         >
-          <div className="dc-header">{"header"}</div>
+          <div className="dc-header">{"Control Group"}</div>
           <div className="dc-body">
             {names_0.map((name, index) => {
               return (
@@ -134,7 +121,7 @@ function App() {
               allAreFalse(checked_1) ? "" : "dc-main-checked"
             }`}
           >
-            <div className="dc-header">{"header"}</div>
+            <div className="dc-header">{"Anti-Inflammatory Meds"}</div>
             <div className="dc-body">
               {names_1.map((name, index) => {
                 return (
@@ -153,7 +140,7 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select Group 0 (No&nbsp;drugs) and Another
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
             Group of Drugs
           </div>
         )}
@@ -163,7 +150,7 @@ function App() {
               allAreFalse(checked_3) ? "" : "dc-main-checked"
             }`}
           >
-            <div className="dc-header">{"header"}</div>
+            <div className="dc-header">{"Anti-Inflammatory Systemic Steroids"}</div>
             <div className="dc-body">
               {names_3.map((name, index) => {
                 return (
@@ -182,7 +169,7 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select Group 0 (No&nbsp;drugs) and Another
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
             Group of Drugs
           </div>
         )}
@@ -193,7 +180,7 @@ function App() {
               allAreFalse(checked_4) ? "" : "dc-main-checked"
             }`}
           >
-            <div className="dc-header">{"header"}</div>
+            <div className="dc-header">{"btsDMARD"}</div>
             <div className="dc-body">
               {names_4.map((name, index) => {
                 return (
@@ -212,17 +199,17 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select Group 0 (No&nbsp;drugs) and Another
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
             Group of Drugs
           </div>
         )}
       </div>
       {/* GROUP 2 */}
-      <div className="titlename">Second Group</div>
+      <div className="titlename">Evaluative</div>
       <div className="sel-group">
         {/* zeroth */}
         <div className="dc-main">
-          <div className="dc-header">{"header"}</div>
+          <div className="dc-header">{"Control Group"}</div>
           <div className="dc-body">
             {names_0.map((name, index) => {
               return (
@@ -243,7 +230,7 @@ function App() {
         {/* first */}
         {allAreFalse(checked_10) ? (
           <div className="dc-main">
-            <div className="dc-header">{"header"}</div>
+            <div className="dc-header">{"Anti-Inflammatory Meds"}</div>
             <div className="dc-body">
               {names_1.map((name, index) => {
                 return (
@@ -264,14 +251,14 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select Group 0 (No&nbsp;drugs) and Another
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
             Group of Drugs
           </div>
         )}
         {/* third */}
         {allAreFalse(checked_10) ? (
           <div className="dc-main">
-            <div className="dc-header">{"header"}</div>
+            <div className="dc-header">{"Anti-Inflammatory Systemic Steroids"}</div>
             <div className="dc-body">
               {names_3.map((name, index) => {
                 return (
@@ -292,14 +279,14 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select Group 0 (No&nbsp;drugs) and Another
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
             Group of Drugs
           </div>
         )}
         {/* fourth */}
         {allAreFalse(checked_10) ? (
           <div className="dc-main">
-            <div className="dc-header">{"header"}</div>
+            <div className="dc-header">{"btsDMARD"}</div>
             <div className="dc-body">
               {names_4.map((name, index) => {
                 return (
@@ -320,7 +307,7 @@ function App() {
           </div>
         ) : (
           <div className="dc-main cgroup">
-            Can't Simultaneously Select Group 0 (No&nbsp;drugs) and Another
+            Can't Simultaneously Select the Control Group (No&nbsp;drugs) and Another
             Group of Drugs
           </div>
         )}
@@ -329,9 +316,10 @@ function App() {
         <button onClick={handleReq}>Calculate Results</button>
       </div>
       <div className="results">
-        <div className="anyev">{anyev ? anyev.Prob : "No Results"}</div>
-
-        <div className="death">{death ? death.Prob : "No Results"}</div>
+      </div>
+      <div className="pie-contain">
+        <Pie prob={0.6121293109283} text="AnyEv"/>
+        <Pie prob={0.4332419411233} text="Death"/>
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./App.css";
 import Pie from "./components/pie";
-import * as Scroll from 'react-scroll';
+import * as Scroll from "react-scroll";
 
 function App() {
   const [anyev, setanyev] = useState(false);
@@ -9,17 +9,32 @@ function App() {
   const [checked_0, setChecked_0] = useState([false]);
   const [checked_1, setChecked_1] = useState([false, false, false]);
   const [checked_3, setChecked_3] = useState([false, false, false, false]);
-  const [checked_4, setChecked_4] = useState([false, false, false]);
+  const [checked_4, setChecked_4] = useState(Array(12).fill(false));
 
   const [checked_10, setChecked_10] = useState([false]);
   const [checked_11, setChecked_11] = useState([false, false, false]);
   const [checked_13, setChecked_13] = useState([false, false, false, false]);
-  const [checked_14, setChecked_14] = useState([false, false, false]);
+  const [checked_14, setChecked_14] = useState(Array(12).fill(false));
   const [message, setMessage] = useState("");
-  const pieRef = useRef(null)
+  const pieRef = useRef(null);
   const [loaded, setloaded] = useState(false);
 
   const scroll = Scroll.animateScroll;
+
+  const clearInputs = () => {
+    setanyev(false);
+    setdeath(false);
+    setChecked_0([false]);
+    setChecked_1([false, false, false]);
+    setChecked_3([false, false, false, false]);
+    setChecked_4(Array(12).fill(false));
+    setChecked_10([false]);
+    setChecked_11([false, false, false]);
+    setChecked_13([false, false, false, false]);
+    setChecked_14(Array(12).fill(false));
+    setMessage("");
+    setloaded(false);
+  }
 
   const handleClick = (func, index, state) => {
     const arrtemp = [...state];
@@ -30,12 +45,24 @@ function App() {
   const names_0 = ["No Drugs"];
   const names_1 = ["NSAID", "COX2", "CELE"];
   const names_3 = ["1", "2", "3", "4"];
-  const names_4 = ["1", "2", "3"];
+  const names_4 = [
+    "ABA",
+    "RTX",
+    "JAKi",
+    "biologic",
+    "ADA",
+    "ETN",
+    "IFX",
+    "GOL",
+    "CER",
+    "TOC",
+    "TOFA",
+    "USTE",
+  ];
 
   function allAreFalse(arr) {
     return arr.every((element) => element === false);
   }
-
 
   const PostRequest = async (arr1, arr2) => {
     setloaded(false);
@@ -146,7 +173,7 @@ function App() {
                     <div className="dselect-name">{name}</div>
                   </div>
                 );
-              })}
+              })}{" "}
             </div>
           </div>
         ) : (
@@ -328,6 +355,7 @@ function App() {
         )}
       </div>
       <div className="button-fetch">
+        <button onClick={clearInputs}>Clear Inputs</button>
         <button onClick={handleReq}>Calculate Results</button>
       </div>
 
